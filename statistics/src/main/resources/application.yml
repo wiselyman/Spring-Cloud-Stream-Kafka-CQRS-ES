@@ -1,0 +1,31 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://192.168.1.140:5432/statistics
+    username: wang
+    password: yunfei
+    driver-class-name: org.postgresql.Driver
+  cloud:
+    stream:
+      bindings:
+        personCount:
+          group: statisticsGroup
+          destination: personCountTopic
+          content-type: application/json
+
+
+spring.cloud.stream.kafka.binder.zkNodes: 192.168.1.222
+spring.cloud.stream.kafka.binder.brokers: 192.168.1.222
+
+
+spring.cloud.stream.kafka.binder.headers: type
+spring.cloud.stream.kafka.bindings.input.consumer.resetOffsets: false
+spring.cloud.stream.kafka.bindings.input.consumer.startOffset: latest
+server:
+  port: 8888
+
